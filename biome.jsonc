@@ -1,0 +1,75 @@
+{
+	"$schema": "./paqarina/node_modules/@biomejs/biome/configuration_schema.json",
+	"organizeImports": {
+		"enabled": false
+	},
+	"files": {
+		"ignore": [
+			"*.dump.json",
+			"*.merge.json",
+			"*.ambr",
+			"node_modules",
+			"build/",
+			"package-lock.json"
+		]
+	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"formatter": {
+		"formatWithErrors": true,
+		"indentStyle": "space"
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single"
+		}
+	},
+	"json": {
+		"parser": {
+			"allowComments": true
+		},
+		"formatter": {
+			"enabled": true,
+			"indentStyle": "tab"
+		}
+	},
+	"linter": {
+		"rules": {
+			"a11y": {
+				"recommended": false
+			},
+			"correctness": {
+				"noUnusedImports": "error",
+				"noUnusedVariables": "error",
+				"useExhaustiveDependencies": "warn",
+				"useHookAtTopLevel": "error",
+				"useJsxKeyInIterable": "off" // This rule has additional options in ESLint that aren't available in Biome yet.
+			},
+			"performance": {
+				"noAccumulatingSpread": "error"
+			},
+			"style": {
+				"noNonNullAssertion": "info",
+				"noParameterAssign": "info",
+				"useEnumInitializers": "off",
+				"useFragmentSyntax": "error",
+				"useImportType": "off" // We do this in ESLint to avoid a syntax error if run at the same time as "organize imports".
+			},
+			"suspicious": {
+				"noArrayIndexKey": "warn", // Override severity while mitigate existing violations
+				"noAssignInExpressions": "off", // This is okay inside useCallback
+				"noConfusingVoidType": "off", // `void` is the correct return type for RTKQ. Ideally only disable in that folder.
+				"noDoubleEquals": { "level": "error", "fix": "safe" }, // Override from unsafe fix to safe
+				"noEmptyBlockStatements": "error",
+				"noExplicitAny": "off", // Rest args are fine, but I don't see that option here. Also, we are still running the ESLint type-aware version of this rule.
+				"noImplicitAnyLet": "info",
+				"noShadowRestrictedNames": "off", // Don't want to warn on MUI's Error Icon
+				"noSkippedTests": "error",
+				"useAwait": "warn" // TODO: Bump to error after fixing the 4 violations
+			}
+		}
+	}
+}

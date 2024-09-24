@@ -1,0 +1,12 @@
+{
+	"repository": {
+		"type": "git",
+		"url": "biome_bug"
+	},
+	"dependencies": {
+		"react": "18.3.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.2"
+	}
+}
